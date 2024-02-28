@@ -14,6 +14,9 @@ import { ArrowLeftTag } from "iconoir-react";
 
 function App() {
   const [input, setInput] = useState("");
+  const [prevInput, setPrevInput] = useState("");
+  const [operator, setOperator] = useState("");
+  const [shouldClearScreen, setShouldClearScreen] = useState(false);
 
   const otherBgColor = "#3C1C55";
   const otherTextColor = "#fff";
@@ -79,35 +82,68 @@ function App() {
   const handleInput = (value) => {
     if (value === "AC") {
       setInput("");
+      setPrevInput("");
+      setOperator("");
+      setShouldClearScreen(false);
     } else if (value === "=") {
-      let sanitizedInput = input.replace("%", "/100");
-      setInput(evaluateInput(sanitizedInput));
+      if (operator && prevInput && input) {
+        let expression = `${prevInput}${operator}${input}`;
+        let result = evaluateInput(expression);
+        setInput(result);
+        setPrevInput("");
+        setOperator("");
+        setShouldClearScreen(false);
+      }
+    } else if (["+", "-", "*", "/", "%"].includes(value)) {
+      if (!operator) {
+        setOperator(value);
+        setPrevInput(input);
+        setShouldClearScreen(true);
+      }
     } else if (value === "del") {
       setInput(input.slice(0, -1));
     } else {
-      setInput(input + value);
+      if (shouldClearScreen) {
+        setInput(value);
+        setShouldClearScreen(false);
+      } else {
+        setInput(input + value);
+      }
     }
   };
   const handleKeyPress = (event) => {
-    const keyMap = {
+    let value = null;
+
+    const specialKeys = {
       Backspace: "del",
       Enter: "=",
       Escape: "AC",
     };
 
-    const value = keyMap[event.key] || event.key;
-    if (buttons.some((button) => button.value === value)) {
+    if (specialKeys[event.key]) {
+      value = specialKeys[event.key];
+    } else {
+      const validKeys = "0123456789+-*/.%";
+      if (validKeys.includes(event.key)) {
+        value = event.key;
+      }
+    }
+
+    if (value && buttons.some((button) => button.value === value)) {
       handleInput(value);
     }
   };
-
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyPress);
+    const handleKeyDown = (event) => {
+      handleKeyPress(event);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyPress);
+      window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [input]);
+  }, [handleKeyPress]);
 
   return (
     <ChakraProvider>
