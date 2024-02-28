@@ -4,7 +4,7 @@ import {
   Box,
   VStack,
   Flex,
-  Icon,
+  Grid,
   Text,
 } from "@chakra-ui/react";
 import ButtonCalculator from "./component/ButtonCalculator";
@@ -14,6 +14,56 @@ import { ArrowLeftTag } from "iconoir-react";
 
 function App() {
   const [input, setInput] = useState("");
+
+  const otherBgColor = "#2F9D89";
+  const otherTextColor = "#fff";
+
+  const buttons = [
+    { value: "AC", colSpan: 1 },
+    { value: "del", colSpan: 1, iconButton: ArrowLeftTag },
+    { value: "%", colSpan: 1 },
+    {
+      value: "/",
+      colSpan: 1,
+      bgColor: otherBgColor,
+      color: otherTextColor,
+    },
+    { value: "7", colSpan: 1 },
+    { value: "8", colSpan: 1 },
+    { value: "9", colSpan: 1 },
+    {
+      value: "*",
+      colSpan: 1,
+      bgColor: otherBgColor,
+      color: otherTextColor,
+    },
+    { value: "4", colSpan: 1 },
+    { value: "5", colSpan: 1 },
+    { value: "6", colSpan: 1 },
+    {
+      value: "-",
+      colSpan: 1,
+      bgColor: otherBgColor,
+      color: otherTextColor,
+    },
+    { value: "1", colSpan: 1 },
+    { value: "2", colSpan: 1 },
+    { value: "3", colSpan: 1 },
+    {
+      value: "+",
+      colSpan: 1,
+      bgColor: otherBgColor,
+      color: otherTextColor,
+    },
+    { value: "0", colSpan: 2 },
+    { value: ".", colSpan: 1 },
+    {
+      value: "=",
+      colSpan: 1,
+      bgColor: otherBgColor,
+      color: otherTextColor,
+    },
+  ];
 
   const evaluateInput = (input) => {
     try {
@@ -59,178 +109,19 @@ function App() {
           >
             <Screen input={input} />
             <VStack paddingY={2}>
-              <Flex justify="space-between" gap={1}>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="AC"
-                  size="lg"
-                  flex="1"
-                >
-                  AC
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="del"
-                  flex="1"
-                  size="lg"
-                >
-                  <Icon as={ArrowLeftTag} boxSize={6} />
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="%"
-                  flex="1"
-                  size="lg"
-                >
-                  %
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="/"
-                  flex="1"
-                  size="lg"
-                  bgColor="#2F9D89"
-                  color="#fff"
-                >
-                  /
-                </ButtonCalculator>
-              </Flex>
-              <Flex justify="space-between" gap={1}>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="7"
-                  flex="1"
-                  size="lg"
-                >
-                  7
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="8"
-                  flex="1"
-                  size="lg"
-                >
-                  8
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="9"
-                  flex="1"
-                  size="lg"
-                >
-                  9
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="*"
-                  flex="1"
-                  size="lg"
-                  bgColor="#2F9D89"
-                  color="#fff"
-                >
-                  *
-                </ButtonCalculator>
-              </Flex>
-              <Flex justify="space-between" gap={1}>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="6"
-                  flex="1"
-                  size="lg"
-                >
-                  6
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="5"
-                  flex="1"
-                  size="lg"
-                >
-                  5
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="4"
-                  flex="1"
-                  size="lg"
-                >
-                  4
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="-"
-                  flex="1"
-                  size="lg"
-                  bgColor="#2F9D89"
-                  color="#fff"
-                >
-                  -
-                </ButtonCalculator>
-              </Flex>
-              <Flex justify="space-between" gap={1}>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="1"
-                  flex="1"
-                  size="lg"
-                >
-                  1
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="2"
-                  flex="1"
-                  size="lg"
-                >
-                  2
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="3"
-                  flex="1"
-                  size="lg"
-                >
-                  3
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="+"
-                  flex="1"
-                  size="lg"
-                  bgColor="#2F9D89"
-                  color="#fff"
-                >
-                  +
-                </ButtonCalculator>
-              </Flex>
-              <Flex justify="space-between" gap={1}>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="0"
-                  flex="2"
-                  size="lg"
-                >
-                  0
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="."
-                  flex="1"
-                  size="lg"
-                >
-                  .
-                </ButtonCalculator>
-                <ButtonCalculator
-                  handleClick={handleClick}
-                  value="="
-                  flex="1"
-                  size="lg"
-                  bgColor="#2F9D89"
-                  color="#fff"
-                >
-                  =
-                </ButtonCalculator>
-              </Flex>
+              <Grid templateColumns="repeat(4, 1fr)" gap={1}>
+                {buttons.map((button) => (
+                  <ButtonCalculator
+                    key={button.value}
+                    handleClick={handleClick}
+                    value={button.value}
+                    colSpan={button.colSpan}
+                    bgColor={button.bgColor}
+                    color={button.color}
+                    iconButton={button.iconButton}
+                  />
+                ))}
+              </Grid>
             </VStack>
           </VStack>
         </Box>

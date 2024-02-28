@@ -1,17 +1,39 @@
 import React from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, Icon } from "@chakra-ui/react";
+import { ArrowLeftTag } from "iconoir-react";
 
-const ButtonCalculator = ({ handleClick, value, children, ...props }) => {
+const initialBgColor = "#fff";
+const initialTextColor = "#2F9D89";
+
+const ButtonCalculator = ({
+  handleClick,
+  value,
+  children,
+  bgColor = initialBgColor,
+  color = initialTextColor,
+  size = "lg",
+  boxShadow = "lg",
+  colSpan = 1,
+  iconButton,
+  ...props
+}) => {
+  const content = iconButton ? (
+    <Icon as={iconButton} boxSize={6} />
+  ) : (
+    children || value
+  );
+
   return (
     <Button
-      bgColor="#FFF"
-      color="#2F9D89"
-      size={"lg"}
-      boxShadow="lg"
+      gridColumn={`span ${colSpan}`}
+      bgColor={bgColor}
+      color={color}
+      size={size}
+      boxShadow={boxShadow}
       onClick={() => handleClick(value)}
       {...props}
     >
-      {children}
+      {content}
     </Button>
   );
 };
