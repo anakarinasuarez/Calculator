@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ChakraProvider,
   Box,
@@ -9,13 +9,13 @@ import {
 } from "@chakra-ui/react";
 import ButtonCalculator from "./component/ButtonCalculator";
 import Screen from "./component/Screen";
-import { evaluate } from "mathjs";
+import { evaluate, format } from "mathjs";
 import { ArrowLeftTag } from "iconoir-react";
 
 function App() {
   const [input, setInput] = useState("");
 
-  const otherBgColor = "#2F9D89";
+  const otherBgColor = "#3C1C55";
   const otherTextColor = "#fff";
 
   const buttons = [
@@ -67,13 +67,16 @@ function App() {
 
   const evaluateInput = (input) => {
     try {
-      return evaluate(input).toString();
+      const result = evaluate(input);
+
+      const maxDigits = 15;
+
+      return format(result, { notation: "auto", precision: maxDigits });
     } catch (error) {
       return "Error";
     }
   };
-
-  const handleClick = (value) => {
+  const handleInput = (value) => {
     if (value === "AC") {
       setInput("");
     } else if (value === "=") {
@@ -85,6 +88,26 @@ function App() {
       setInput(input + value);
     }
   };
+  const handleKeyPress = (event) => {
+    const keyMap = {
+      Backspace: "del",
+      Enter: "=",
+      Escape: "AC",
+    };
+
+    const value = keyMap[event.key] || event.key;
+    if (buttons.some((button) => button.value === value)) {
+      handleInput(value);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [input]);
 
   return (
     <ChakraProvider>
@@ -93,10 +116,11 @@ function App() {
         width="100vw"
         alignItems="center"
         justifyContent="center"
+        bgColor="#F5F5F5"
       >
         <Box p={4}>
           <VStack spacing={4} marginBottom={10}>
-            <Text color="#1C554B" fontSize="4xl">
+            <Text color="#3C1C55" fontSize="4xl">
               My Calculator
             </Text>
           </VStack>
@@ -106,14 +130,15 @@ function App() {
             borderWidth={1}
             borderRadius="xl"
             boxShadow="dark-lg"
+            minW={380}
           >
             <Screen input={input} />
-            <VStack paddingY={2}>
+            <VStack paddingY={4}>
               <Grid templateColumns="repeat(4, 1fr)" gap={1}>
                 {buttons.map((button) => (
                   <ButtonCalculator
                     key={button.value}
-                    handleClick={handleClick}
+                    handleClick={handleInput}
                     value={button.value}
                     colSpan={button.colSpan}
                     bgColor={button.bgColor}

@@ -1,9 +1,8 @@
 import React from "react";
 import { Button, Icon } from "@chakra-ui/react";
-import { ArrowLeftTag } from "iconoir-react";
 
 const initialBgColor = "#fff";
-const initialTextColor = "#2F9D89";
+const initialTextColor = "#3C1C55";
 
 const ButtonCalculator = ({
   handleClick,
