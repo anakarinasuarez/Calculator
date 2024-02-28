@@ -72,13 +72,22 @@ function App() {
     try {
       const result = evaluate(input);
 
-      const maxDigits = 15;
+      const resultString = result.toString();
 
-      return format(result, { notation: "auto", precision: maxDigits });
+      if (resultString.length > 10) {
+        return format(result, { notation: "exponential", precision: 6 });
+      } else {
+        const decimalCheck = resultString.split(".");
+        if (decimalCheck.length > 1 && decimalCheck[1].length > 5) {
+          return Number(result.toFixed(5)).toString();
+        }
+        return resultString;
+      }
     } catch (error) {
       return "Error";
     }
   };
+
   const handleInput = (value) => {
     if (value === "AC") {
       setInput("");
