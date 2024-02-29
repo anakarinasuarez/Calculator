@@ -15,6 +15,7 @@ This project is a simple calculator built with [React](https://reactjs.org/) and
 - [Chakra UI](https://chakra-ui.com/)
 - [mathjs](https://mathjs.org/)
 - [iconior](https://iconoir.com/)
+- [framer-motion](https://www.framer.com/motion/)
 
 ## Installation
 

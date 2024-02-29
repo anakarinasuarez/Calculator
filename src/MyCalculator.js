@@ -2,9 +2,9 @@ import {
   ChakraProvider,
   Box,
   VStack,
-  Flex,
   Grid,
   Text,
+  Flex,
 } from "@chakra-ui/react";
 import ButtonCalculator from "./component/ButtonCalculator";
 import Screen from "./component/Screen";
@@ -23,23 +23,9 @@ function MyCalculator() {
   });
   const [isDragging, setIsDragging] = useState(false);
 
-  const textVariants = {
-    visible: { opacity: 1 },
-    hidden: { opacity: 0 },
-  };
-
-  const containerVariants = {
-    hover: {
-      scale: 1.05,
-      rotateX: 5,
-      rotateY: 5,
-      transition: { type: "spring", stiffness: 300 },
-    },
-  };
-
   useEffect(() => {
     function updateConstraints() {
-      const calculatorElement = document.getElementById("calculator");
+      const calculatorElement = document.getElementById("calculator-container");
       if (calculatorElement) {
         const { width, height } = calculatorElement.getBoundingClientRect();
         setConstraints({
@@ -52,7 +38,6 @@ function MyCalculator() {
     }
 
     window.addEventListener("resize", updateConstraints);
-
     updateConstraints();
 
     return () => {
@@ -71,27 +56,24 @@ function MyCalculator() {
       >
         <Box p={4}>
           <motion.div
-            variants={textVariants}
-            animate={isDragging ? "hidden" : "visible"}
-            transition={{ duration: 0.2 }}
-          >
-            <VStack spacing={4} marginBottom={10}>
-              <Text color="#3C1C55" fontSize="5xl">
-                My Calculator
-              </Text>
-            </VStack>
-          </motion.div>
-          <motion.div
             drag
             onDragStart={() => setIsDragging(true)}
             onDragEnd={() => setIsDragging(false)}
             dragConstraints={constraints}
             dragElastic={0.1}
-            id="calculator"
-            whileHover="hover"
-            variants={containerVariants}
+            id="calculator-container"
             style={{ perspective: 600 }}
           >
+            <VStack
+              spacing={4}
+              marginBottom={10}
+              opacity={isDragging ? 0 : 1}
+              transition={{ duration: 0.2 }}
+            >
+              <Text color="#3C1C55" fontSize="5xl">
+                My Calculator
+              </Text>
+            </VStack>
             <VStack
               bgColor="#fff"
               p={6}
