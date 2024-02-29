@@ -36,7 +36,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Screenshots
 
-![screenshot](./src/assets/screenshot.png)
+![screenshot](./public/my-calculator.png)
 
 ## Live Demo
 
