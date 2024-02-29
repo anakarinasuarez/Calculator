@@ -94,7 +94,8 @@ function MyCalculator() {
             <motion.div variants={containerVariants}>
               <VStack
                 bgColor="#fff"
-                p={6}
+                paddingY={10}
+                paddingX={6}
                 borderWidth={1}
                 borderRadius="xl"
                 boxShadow="dark-lg"
