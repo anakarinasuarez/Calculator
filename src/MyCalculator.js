@@ -1,11 +1,4 @@
-import {
-  ChakraProvider,
-  Box,
-  VStack,
-  Grid,
-  Text,
-  Flex,
-} from "@chakra-ui/react";
+import { ChakraProvider, VStack, Grid, Text, Flex } from "@chakra-ui/react";
 import ButtonCalculator from "./component/ButtonCalculator";
 import Screen from "./component/Screen";
 import useCalculator from "./hooks/useCalculator";
@@ -45,6 +38,24 @@ function MyCalculator() {
     };
   }, []);
 
+  const containerVariants = {
+    hidden: { x: "50vw", opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 120, duration: 1.0 },
+    },
+  };
+
+  const textVariants = {
+    hidden: { x: "-50vw", opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 120, delay: 0.2, duration: 0.5 },
+    },
+  };
+
   return (
     <ChakraProvider>
       <Flex
@@ -52,55 +63,58 @@ function MyCalculator() {
         width="100vw"
         alignItems="center"
         justifyContent="center"
-        bgColor="#F5F5F5"
+        bgColor="#F2EDF6"
       >
-        <Box p={4}>
-          <motion.div
-            drag
-            onDragStart={() => setIsDragging(true)}
-            onDragEnd={() => setIsDragging(false)}
-            dragConstraints={constraints}
-            dragElastic={0.1}
-            id="calculator-container"
-            style={{ perspective: 600 }}
-          >
-            <VStack
-              spacing={4}
-              marginBottom={10}
-              opacity={isDragging ? 0 : 1}
-              transition={{ duration: 0.2 }}
+        <motion.div
+          drag
+          onDragStart={() => setIsDragging(true)}
+          onDragEnd={() => setIsDragging(false)}
+          dragConstraints={constraints}
+          dragElastic={0.1}
+          id="calculator-container"
+          initial="hidden"
+          animate="visible"
+          style={{ perspective: 600 }}
+        >
+          <VStack spacing={4} align="center">
+            <motion.div
+              variants={textVariants}
+              initial="hidden"
+              animate="visible"
             >
-              <Text color="#3C1C55" fontSize="5xl">
+              <Text color="#3C1C55" fontSize="5xl" mb={4}>
                 My Calculator
               </Text>
-            </VStack>
-            <VStack
-              bgColor="#fff"
-              p={6}
-              borderWidth={1}
-              borderRadius="xl"
-              boxShadow="dark-lg"
-              minW={380}
-            >
-              <Screen input={input} />
-              <VStack paddingY={4}>
-                <Grid templateColumns="repeat(4, 1fr)" gap={1}>
-                  {buttons.map((button) => (
-                    <ButtonCalculator
-                      key={button.value}
-                      handleClick={handleInput}
-                      value={button.value}
-                      colSpan={button.colSpan}
-                      bgColor={button.bgColor}
-                      color={button.color}
-                      iconButton={button.iconButton}
-                    />
-                  ))}
-                </Grid>
+            </motion.div>
+            <motion.div variants={containerVariants}>
+              <VStack
+                bgColor="#fff"
+                p={6}
+                borderWidth={1}
+                borderRadius="xl"
+                boxShadow="dark-lg"
+                minW={380}
+              >
+                <Screen input={input} />
+                <VStack paddingY={4}>
+                  <Grid templateColumns="repeat(4, 1fr)" gap={1}>
+                    {buttons.map((button) => (
+                      <ButtonCalculator
+                        key={button.value}
+                        handleClick={handleInput}
+                        value={button.value}
+                        colSpan={button.colSpan}
+                        bgColor={button.bgColor}
+                        color={button.color}
+                        iconButton={button.iconButton}
+                      />
+                    ))}
+                  </Grid>
+                </VStack>
               </VStack>
-            </VStack>
-          </motion.div>
-        </Box>
+            </motion.div>
+          </VStack>
+        </motion.div>
       </Flex>
     </ChakraProvider>
   );
