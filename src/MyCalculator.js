@@ -63,7 +63,7 @@ function MyCalculator() {
         width="100vw"
         alignItems="center"
         justifyContent="center"
-        bgColor="#F2EDF6"
+        bgColor="#F3ECF9"
       >
         <motion.div
           drag
@@ -82,7 +82,12 @@ function MyCalculator() {
               initial="hidden"
               animate="visible"
             >
-              <Text color="#3C1C55" fontSize="5xl" mb={4}>
+              <Text
+                color={isDragging ? "transparent" : "#3C1C55"}
+                fontSize="5xl"
+                mb={4}
+                transition="color 0.1s"
+              >
                 My Calculator
               </Text>
             </motion.div>
@@ -94,10 +99,10 @@ function MyCalculator() {
                 borderRadius="xl"
                 boxShadow="dark-lg"
                 minW={380}
-                cursor="pointer"
+                cursor={isDragging ? "grabbing" : "grab"}
               >
                 <Screen input={input} />
-                <VStack paddingY={4}>
+                <VStack paddingTop={4}>
                   <Grid templateColumns="repeat(4, 1fr)" gap={1}>
                     {buttons.map((button) => (
                       <ButtonCalculator

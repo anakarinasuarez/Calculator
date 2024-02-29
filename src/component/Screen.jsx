@@ -1,9 +1,8 @@
 import React from "react";
-import { Input } from "@chakra-ui/react";
+import { Input, Box } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 const textColor = "#3C1C55";
-const bgColor = "#fff";
 
 const Screen = ({ input }) => {
   const [fontSize, setFontSize] = useState("3xl");
@@ -18,19 +17,27 @@ const Screen = ({ input }) => {
     }
   }, [input]);
   return (
-    <Input
-      value={input}
-      readOnly
-      paddingX={3}
-      marginY={6}
-      bgColor={bgColor}
-      textColor={textColor}
-      placeholder="0"
-      placeholderTextColor={textColor}
-      fontSize={fontSize}
-      size="lg"
-      border="none"
-    />
+    <Box
+      boxShadow="inset 4px 1px 6px rgba(0,0,0,.1), inset -4px -3px 6px #fff"
+      borderColor="rgba(0, 0, 0, 0.01)"
+      borderWidth={1}
+      bgColor="#F3ECF9"
+      borderRadius="lg"
+    >
+      <Input
+        value={input}
+        readOnly
+        paddingX={3}
+        marginY={6}
+        textColor={textColor}
+        placeholder="0"
+        placeholderTextColor={textColor}
+        fontSize={fontSize}
+        size="lg"
+        border="none"
+        bgColor="transparent"
+      />
+    </Box>
   );
 };
 
