@@ -4,10 +4,11 @@ This project is a simple calculator built with [React](https://reactjs.org/) and
 
 ## Features
 
-- Intuitive and responsive user interface.
+- Intuitive user interface.
 - Basic mathematical operations: addition, subtraction, multiplication, division.
-- Ability to clear the last entered number or reset the entire operation.
-- Interactive keyboard: operations can be performed by either clicking the buttons or using the keyboard.
+- Ability to delete the last number entered or reset the entire operation.
+- Interactive keyboard: Operations can be performed by clicking the buttons or using the keyboard.
+- Effect of moving the calculator wherever you like with the mouse.
 
 ## Technologies Used
 
@@ -32,3 +33,28 @@ This project is a simple calculator built with [React](https://reactjs.org/) and
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+## Screenshots
+
+![screenshot](./src/assets/screenshot.png)
+
+## Live Demo
+
+[Live Demo Link](https://react-calculator-2021.netlify.app/)
+
+## Contributing
+
+Contributions are welcome! If you have an idea or suggestion to improve this application, we encourage you to contribute. Please follow these steps to make your contributions easier to manage:
+
+1. Fork the project. Start by forking the repository to your own GitHub account. This creates a personal copy for you to work on.
+2. Create a new branch in your forked repository. Naming your branch something descriptive about the change you intend to make can be helpful. For example, git checkout -b feature/add-new-calculation-method.
+3. Commit your changes. Make your changes in your local repository and commit them with a clear and descriptive commit message. This message should explain what you've done and why. For example, git commit -m "Add trigonometric functions to calculator".
+4. Push to the branch. Push your changes to your GitHub repository. git push origin feature/add-new-calculation-method.
+
+5. Open a pull request. Go to the original repository you forked from, and you'll see a banner to open a pull request with the changes you just pushed. Click on "Compare & pull request" and submit it with a clear description of your changes and what they improve. Be sure to mention any specific issues your pull request addresses.
+
+## Contact
+
+- [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/connect-ana-karina-suárez-gonzález)
+- [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/anakarinasuarez)
+- [![Email](https://img.shields.io/badge/Email-D14836?style=flat&logo=gmail&logoColor=white)](mailto:suarez.anakarina@hotmail.com)

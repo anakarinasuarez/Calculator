@@ -94,6 +94,7 @@ function MyCalculator() {
                 borderRadius="xl"
                 boxShadow="dark-lg"
                 minW={380}
+                cursor="pointer"
               >
                 <Screen input={input} />
                 <VStack paddingY={4}>
