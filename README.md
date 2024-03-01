@@ -40,7 +40,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Live Demo
 
-[Live Demo Link](https://react-calculator-2021.netlify.app/)
+[Live Demo Link](https://my-calculator-add.netlify.app/)
 
 ## Contributing
 
