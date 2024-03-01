@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { evaluate, format } from "mathjs";
 import { buttons } from "../utils/buttonsConfig";
 
@@ -11,7 +11,6 @@ const useCalculator = () => {
   const evaluateInput = (input) => {
     try {
       const result = evaluate(input);
-
       const resultString = result.toString();
 
       if (resultString.length > 10) {
@@ -60,32 +59,34 @@ const useCalculator = () => {
       }
     }
   };
-  const handleKeyPress = (event) => {
-    let value = null;
 
-    const specialKeys = {
-      Backspace: "del",
-      Enter: "=",
-      Escape: "AC",
-    };
+  const handleKeyPress = useCallback(
+    (event) => {
+      let value = null;
+      const specialKeys = {
+        Backspace: "del",
+        Enter: "=",
+        Escape: "AC",
+      };
 
-    if (specialKeys[event.key]) {
-      value = specialKeys[event.key];
-    } else {
-      const validKeys = "0123456789+-*/.%";
-      if (validKeys.includes(event.key)) {
-        value = event.key;
+      if (specialKeys[event.key]) {
+        value = specialKeys[event.key];
+      } else {
+        const validKeys = "0123456789+-*/.%";
+        if (validKeys.includes(event.key)) {
+          value = event.key;
+        }
       }
-    }
 
-    if (value && buttons.some((button) => button.value === value)) {
-      handleInput(value);
-    }
-  };
+      if (value && buttons.some((button) => button.value === value)) {
+        handleInput(value);
+      }
+    },
+    [handleInput]
+  );
+
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      handleKeyPress(event);
-    };
+    const handleKeyDown = (event) => handleKeyPress(event);
 
     window.addEventListener("keydown", handleKeyDown);
 
