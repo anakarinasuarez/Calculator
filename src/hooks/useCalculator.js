@@ -8,7 +8,7 @@ const useCalculator = () => {
   const [operator, setOperator] = useState("");
   const [shouldClearScreen, setShouldClearScreen] = useState(false);
 
-  const evaluateInput = (input) => {
+  const evaluateInput = useCallback((input) => {
     try {
       const result = evaluate(input);
       const resultString = result.toString();
@@ -25,40 +25,43 @@ const useCalculator = () => {
     } catch (error) {
       return "Error";
     }
-  };
+  }, []);
 
-  const handleInput = (value) => {
-    if (value === "AC") {
-      setInput("");
-      setPrevInput("");
-      setOperator("");
-      setShouldClearScreen(false);
-    } else if (value === "=") {
-      if (operator && prevInput && input) {
-        let expression = `${prevInput}${operator}${input}`;
-        let result = evaluateInput(expression);
-        setInput(result);
+  const handleInput = useCallback(
+    (value) => {
+      if (value === "AC") {
+        setInput("");
         setPrevInput("");
         setOperator("");
         setShouldClearScreen(false);
-      }
-    } else if (["+", "-", "*", "/", "%"].includes(value)) {
-      if (!operator) {
-        setOperator(value);
-        setPrevInput(input);
-        setShouldClearScreen(true);
-      }
-    } else if (value === "del") {
-      setInput(input.slice(0, -1));
-    } else {
-      if (shouldClearScreen) {
-        setInput(value);
-        setShouldClearScreen(false);
+      } else if (value === "=") {
+        if (operator && prevInput && input) {
+          let expression = `${prevInput}${operator}${input}`;
+          let result = evaluateInput(expression);
+          setInput(result);
+          setPrevInput("");
+          setOperator("");
+          setShouldClearScreen(false);
+        }
+      } else if (["+", "-", "*", "/", "%"].includes(value)) {
+        if (!operator) {
+          setOperator(value);
+          setPrevInput(input);
+          setShouldClearScreen(true);
+        }
+      } else if (value === "del") {
+        setInput(input.slice(0, -1));
       } else {
-        setInput(input + value);
+        if (shouldClearScreen) {
+          setInput(value);
+          setShouldClearScreen(false);
+        } else {
+          setInput(input + value);
+        }
       }
-    }
-  };
+    },
+    [input, operator, prevInput, evaluateInput]
+  );
 
   const handleKeyPress = useCallback(
     (event) => {
