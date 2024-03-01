@@ -60,7 +60,7 @@ const useCalculator = () => {
         }
       }
     },
-    [input, operator, prevInput, evaluateInput]
+    [input, operator, prevInput, evaluateInput, shouldClearScreen]
   );
 
   const handleKeyPress = useCallback(
